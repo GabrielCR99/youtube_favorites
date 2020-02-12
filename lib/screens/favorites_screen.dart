@@ -11,21 +11,21 @@ class FavoritesPage extends StatelessWidget {
     final bloc = BlocProvider.getBloc<FavoriteBloc>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Favoritos',
-        ),
+        title: Text('Favoritos'),
         centerTitle: true,
         backgroundColor: Colors.black87,
       ),
       backgroundColor: Colors.black87,
       body: StreamBuilder<Map<String, Video>>(
+        stream: bloc.outFav,
         initialData: {},
-        builder: (BuildContext context, snapshot) {
+        builder: (context, snapshot) {
           return ListView(
               children: snapshot.data.values.map((v) {
             return InkWell(
               onTap: () {
-                FlutterYoutube.playYoutubeVideoById(apiKey: API_KEY, videoId: v.id);
+                FlutterYoutube.playYoutubeVideoById(
+                    apiKey: API_KEY, videoId: v.id);
               },
               onLongPress: () {
                 bloc.toggleFavorite(v);
@@ -33,17 +33,14 @@ class FavoritesPage extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Container(
-                    width: 100.0,
-                    height: 50.0,
+                    width: 100,
+                    height: 50,
                     child: Image.network(v.thumbnail),
                   ),
                   Expanded(
                     child: Text(
                       v.title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      ),
+                      style: TextStyle(color: Colors.white70, fontSize: 16.0),
                       maxLines: 2,
                     ),
                   ),
@@ -52,7 +49,6 @@ class FavoritesPage extends StatelessWidget {
             );
           }).toList());
         },
-        stream: bloc.outFav,
       ),
     );
   }

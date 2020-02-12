@@ -55,7 +55,7 @@ class Home extends StatelessWidget {
         ],
       ),
       body: StreamBuilder(
-        initialData: [],
+        initialData: {},
         builder: (context, snapshot) {
           if (snapshot.hasData)
             return ListView.builder(
