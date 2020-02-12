@@ -4,6 +4,7 @@ import 'package:youtube_favorites/blocs/favoriet_bloc.dart';
 import 'package:youtube_favorites/blocs/videos_bloc.dart';
 import 'package:youtube_favorites/delegates/data_search.dart';
 import 'package:youtube_favorites/models/video.dart';
+import 'package:youtube_favorites/screens/favorites_screen.dart';
 import 'package:youtube_favorites/widgets/video_tile.dart';
 
 class Home extends StatelessWidget {
@@ -25,7 +26,10 @@ class Home extends StatelessWidget {
               initialData: {},
               builder: (context, snapshot) {
                 if (snapshot.hasData)
-                  return Text('${snapshot.data.length}', style: TextStyle(fontSize: 20.0),);
+                  return Text(
+                    '${snapshot.data.length}',
+                    style: TextStyle(fontSize: 20.0),
+                  );
                 else
                   return Container();
               },
@@ -34,7 +38,10 @@ class Home extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.star),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => FavoritesPage()));
+            },
           ),
           IconButton(
             icon: Icon(Icons.search),
